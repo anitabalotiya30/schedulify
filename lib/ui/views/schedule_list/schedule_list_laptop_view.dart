@@ -41,6 +41,7 @@ class ScheduleListLaptopView extends StatelessWidget {
 
             Expanded(
               child: CustomDropDown(
+                  c: viewModel.schedule.etLocation,
                   list: List.generate(5, (i) => 'Location ${i + 1}'),
                   label: 'Location/State',
                   onSelect: (v) => viewModel.schedule.etLocation.text = v!),
@@ -49,6 +50,7 @@ class ScheduleListLaptopView extends StatelessWidget {
 
             Expanded(
               child: CustomDropDown(
+                  c: viewModel.schedule.etHospital,
                   list: List.generate(5, (i) => 'Hospital ${i + 1}'),
                   label: 'Hospital/Site Name',
                   onSelect: (v) => viewModel.schedule.etHospital.text = v!),
@@ -81,15 +83,20 @@ class ScheduleListLaptopView extends StatelessWidget {
             //
             Expanded(
                 child: CustomDropDown(
+                    c: viewModel.schedule.etProspect,
                     list: List.generate(5, (i) => 'Prospects ${i + 1}'),
                     label: 'Prospects*',
-                    onSelect: (v) => viewModel.schedule.etLocation.text = v!)),
+                    onSelect: (v) => viewModel.schedule.etProspect.text = v!)),
             horizontalSpaceSmall,
 
             //
             Expanded(
-                child: CustomTextField(
-                    label: 'Co Worker', c: viewModel.schedule.etCoworker)),
+              child: CustomDropDown(
+                  c: viewModel.schedule.etCoworker,
+                  list: List.generate(5, (i) => 'Co Worker ${i + 1}'),
+                  label: 'Co Worker',
+                  onSelect: (v) => viewModel.schedule.etCoworker.text = v!),
+            ),
           ],
         ),
 
@@ -124,8 +131,10 @@ class ScheduleListLaptopView extends StatelessWidget {
                     width: mq.width * .5,
                     height: mq.height * .06,
                     bgColor: Colors.blue,
-                    onTap: () {},
-                    text: 'Add Schedule')),
+                    onTap: !viewModel.clickEdit
+                        ? viewModel.onClickAddSched
+                        : viewModel.onUpdate,
+                    text: '${viewModel.clickEdit ? 'Edit' : 'Add'}  Schedule')),
           ],
         ),
       ],

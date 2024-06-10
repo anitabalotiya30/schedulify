@@ -52,7 +52,7 @@ class ScheduleListView extends StatelessWidget {
             verticalSpaceSmall,
 
             SizedBox(
-                height: mq.height * .25,
+                height: mq.height * .26,
 
                 //
                 child: _ViewUpcomingSchedule(viewModel: viewModel)),

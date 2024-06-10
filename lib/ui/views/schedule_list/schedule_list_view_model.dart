@@ -1,7 +1,3 @@
-// import 'package:schedulify/app/core/custom_base_view_model.dart';
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:schedulify/helper/extensions.dart';
 import 'package:stacked/stacked.dart';
@@ -28,6 +24,8 @@ class ScheduleListViewModel
   void onClickAddSched() async {
     if (validate()) {
       await ApiService.createSchedule(schedule.toJson());
+      final getData = await futureToRun();
+      data = List.from(getData);
       reset();
     } else {
       MyDialogs.error(msg: 'Fields marked with an asterisk (*) are required.');
@@ -39,6 +37,8 @@ class ScheduleListViewModel
       final updateJson = schedule.toJson();
       updateJson['id'] = schedule.id;
       await ApiService.updateSchedule(updateJson);
+      final getData = await futureToRun();
+      data = List.from(getData);
       reset();
     } else {
       MyDialogs.error(msg: 'Fields marked with an asterisk (*) are required.');
@@ -87,6 +87,9 @@ class ScheduleListViewModel
     clickEdit = false;
     notifyListeners();
   }
+
+  // void reset() {
+  // }
 
   bool validate() {
     final date = schedule.etDate.text;

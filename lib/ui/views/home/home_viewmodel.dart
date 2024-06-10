@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -5,7 +6,7 @@ import '../../../app/app.locator.dart';
 import '../../../app/app.router.dart';
 
 class HomeViewModel extends BaseViewModel {
-  // final _dialogService = locator<DialogService>();
+  // final dialogService = locator<DialogService>();
   // final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
 
@@ -15,6 +16,14 @@ class HomeViewModel extends BaseViewModel {
 
   void navigateToSchedList() =>
       _navigationService.navigateTo(Routes.scheduleListView);
+
+  final etText = TextEditingController();
+  bool switchV = false;
+
+  void onToggleSwitch(bool v) {
+    switchV = v;
+    notifyListeners();
+  }
 
   // String get counterLabel => 'Counter is: $_counter';
 

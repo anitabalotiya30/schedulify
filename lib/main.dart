@@ -52,16 +52,29 @@ class MainApp extends StatelessWidget {
 
           // set default appbar theme
           appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              centerTitle: true,
-              iconTheme: IconThemeData(color: Colors.black),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: true,
+            iconTheme: IconThemeData(color: Colors.black),
+
+            //
+            titleTextStyle: TextStyle(
+                fontSize: 19, fontWeight: FontWeight.w500, color: Colors.black),
+          ),
+
+          // setting default theme to textField
+          inputDecorationTheme: const InputDecorationTheme(
+              isDense: true,
+              filled: true,
+              fillColor: Color(0XFFf8f9fa),
 
               //
-              titleTextStyle: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black))),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black26),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black38),
+                  borderRadius: BorderRadius.all(Radius.circular(10))))),
     );
   }
 }

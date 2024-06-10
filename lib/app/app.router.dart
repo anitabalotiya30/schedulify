@@ -13,8 +13,14 @@ import 'package:schedulify/ui/views/schedule_list/schedule_list_view.dart';
 import 'package:schedulify/ui/views/startup/startup_view.dart' as _i3;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i6;
+import 'package:stacked_services/stacked_services.dart';
 
 class Routes {
+  // create global context
+  static final context =
+      StackedService.navigatorKey?.currentState?.overlay?.context ??
+          StackedService.navigatorKey?.currentContext;
+
   static const homeView = '/home-view';
 
   static const startupView = '/startup-view';
@@ -78,8 +84,6 @@ class StackedRouter extends _i1.RouterBase {
         pageBuilder: (context, animation, secondaryAnimation) =>
             const ScheduleListView(),
         settings: data,
-        transitionsBuilder:
-            data.transition ?? _i1.TransitionsBuilders.moveInLeft,
       );
     },
   };

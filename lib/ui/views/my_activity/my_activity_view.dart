@@ -117,7 +117,7 @@ class MyActivityView extends StackedView<MyActivityViewModel> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'YOUR NUMBER LOOK GRATE',
+                          'YOUR NUMBERS LOOK GRATE',
                           style: ktsTitleText,
                         ),
                       ),

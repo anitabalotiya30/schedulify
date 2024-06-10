@@ -6,90 +6,11 @@ import '../../common/ui_helpers.dart';
 import '../../widgets/btn/custom_btn.dart';
 import 'home_viewmodel.dart';
 
-// class HomeView extends StackedView<HomeViewModel> {
-//   const HomeView({Key? key}) : super(key: key);
-
-//   @override
-//   Widget builder(
-//     BuildContext context,
-//     HomeViewModel viewModel,
-//     Widget? child,
-//   ) {
-//     return Scaffold(
-//       body: SafeArea(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-//           child: Center(
-//             child: Column(
-//               mainAxisSize: MainAxisSize.max,
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 verticalSpaceLarge,
-//                 Column(
-//                   children: [
-//                     const Text(
-//                       'Hello, STACKED!',
-//                       style: TextStyle(
-//                         fontSize: 35,
-//                         fontWeight: FontWeight.w900,
-//                       ),
-//                     ),
-//                     verticalSpaceMedium,
-//                     MaterialButton(
-//                       color: Colors.black,
-//                       onPressed: viewModel.incrementCounter,
-//                       child: Text(
-//                         viewModel.counterLabel,
-//                         style: const TextStyle(color: Colors.white),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     MaterialButton(
-//                       color: kcDarkGreyColor,
-//                       onPressed: viewModel.showDialog,
-//                       child: const Text(
-//                         'Show Dialog',
-//                         style: TextStyle(
-//                           color: Colors.white,
-//                         ),
-//                       ),
-//                     ),
-//                     MaterialButton(
-//                       color: kcDarkGreyColor,
-//                       onPressed: viewModel.showBottomSheet,
-//                       child: const Text(
-//                         'Show Bottom Sheet',
-//                         style: TextStyle(
-//                           color: Colors.white,
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 )
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   @override
-//   HomeViewModel viewModelBuilder(
-//     BuildContext context,
-//   ) =>
-//       HomeViewModel();
-// }
-
-class HomeView extends StackedView<HomeViewModel> {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
-  Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
+  Widget build(BuildContext context) {
     return Scaffold(
       //
       appBar: AppBar(
@@ -98,7 +19,12 @@ class HomeView extends StackedView<HomeViewModel> {
 
       // body
       body: Center(
-        child: Column(
+          //
+          child: ViewModelBuilder<HomeViewModel>.nonReactive(
+        viewModelBuilder: () => HomeViewModel(),
+
+        //
+        builder: (context, viewModel, child) => Column(
           mainAxisAlignment: MainAxisAlignment.center,
 
           //
@@ -107,10 +33,12 @@ class HomeView extends StackedView<HomeViewModel> {
               'Tap "My Activity" to View Your Activity',
               style: ktsTitleText,
             ),
+
+            // for giving some space
             verticalSpaceTiny,
-            CustomBtn(onTap: viewModel.navigateToActivity, text: 'My Activity'),
 
             //
+            CustomBtn(onTap: viewModel.navigateToActivity, text: 'My Activity'),
             spacedDivider,
 
             //
@@ -119,17 +47,14 @@ class HomeView extends StackedView<HomeViewModel> {
               style: ktsTitleText,
             ),
             verticalSpaceTiny,
+
             CustomBtn(
                 onTap: viewModel.navigateToSchedList, text: 'View Schedule'),
+
+            //
           ],
         ),
-      ),
+      )),
     );
   }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
 }

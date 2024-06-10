@@ -4,5 +4,6 @@
 const baseUrl = 'https://showdigital.in/flutter-schedules';
 
 //Product & Categories
-const createSchedUrl = '$baseUrl/create_schedule.php';
 const schedListUrl = '$baseUrl/list_schedule.php';
+const createSchedUrl = '$baseUrl/create_schedule.php';
+const updateSchedUrl = '$baseUrl/update_schedule.php';

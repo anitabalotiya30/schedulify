@@ -2,6 +2,8 @@
 
 extension MyString on String {
   DateTime? get dateTime => DateTime.tryParse(this);
+
+  bool get isValid => trim().isNotEmpty;
 }
 
 extension FicListExtension<T> on List<T> {

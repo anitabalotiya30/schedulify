@@ -5,31 +5,33 @@ import '../../common/app_colors.dart';
 class CustomBtn extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+  final Color? bgColor;
   final double fontSize;
-  final bool whiteBtn;
+  final double height;
+  final double width;
 
   const CustomBtn(
       {super.key,
-      this.fontSize = 17,
+      this.fontSize = 16,
       required this.onTap,
       required this.text,
-      this.whiteBtn = false});
+      this.bgColor,
+      this.height = 40,
+      this.width = 140});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      color: kcPrimaryColor,
-      elevation: .2,
-
-      //
-      onPressed: onTap,
-
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-      ),
-    );
+    return ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: bgColor ?? kcPrimaryColor,
+            minimumSize: Size(width, height)),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: fontSize,
+          ),
+        ));
   }
 }

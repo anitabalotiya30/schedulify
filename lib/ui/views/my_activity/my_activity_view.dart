@@ -74,7 +74,7 @@ class MyActivityView extends StackedView<MyActivityViewModel> {
                     children: [
                       //
                       Wrap(
-                        spacing: mq.width * .2,
+                        spacing: mq.width * .12,
                         runSpacing: mq.height * .04,
                         alignment: WrapAlignment.center,
                         children: [

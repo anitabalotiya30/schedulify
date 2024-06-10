@@ -19,9 +19,11 @@ class ApiService {
         final Iterable data = jsonDecode(response.body);
         final mainList = data.map((e) => Schedule.fromJson(e)).toList();
 
-        // Filter and sort the list in one step
-        final list = mainList.where((e) => e.date.dateTime != null).toList()
-          ..sort((a, b) => a.date.dateTime!.compareTo(b.date.dateTime!));
+        final list = mainList.where((e) => e.date.dateTime != null).toList();
+        final others = mainList.where((e) => e.date.dateTime == null).toList();
+
+        // sort the list by date
+        list.sort((a, b) => a.date.dateTime!.compareTo(b.date.dateTime!));
 
         // Group schedules by month using a map
         final scheduleMap = <String, List<Schedule>>{};
@@ -32,6 +34,15 @@ class ApiService {
             scheduleMap[month]!.add(e);
           } else {
             scheduleMap[month] = [e];
+          }
+        }
+
+        // Add unsorted items to the scheduleMap
+        for (var e in others) {
+          if (scheduleMap.containsKey(e.date)) {
+            scheduleMap[e.date]?.add(e);
+          } else {
+            scheduleMap[e.date] = [e];
           }
         }
 

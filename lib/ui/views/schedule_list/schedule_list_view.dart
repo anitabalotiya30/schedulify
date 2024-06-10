@@ -44,6 +44,7 @@ class ScheduleListView extends StackedView<ScheduleListViewModel> {
                     height: mq.height * .4,
                     //
                     child: PageView.builder(
+                      controller: viewModel.pageC,
                       itemCount: viewModel.data?.length,
                       physics: const BouncingScrollPhysics(),
 

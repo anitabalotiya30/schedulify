@@ -9,12 +9,12 @@ import '../ui/bottom_sheets/notice/notice_sheet.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/my_activity/my_activity_view.dart';
-import '../ui/views/startup/startup_view.dart';
+import '../ui/views/splash/splash_view.dart';
 
 @StackedApp(
   routes: [
     MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
+    MaterialRoute(page: SplashView),
     CustomRoute(
         page: MyActivityView,
         transitionsBuilder: TransitionsBuilders.moveInLeft)

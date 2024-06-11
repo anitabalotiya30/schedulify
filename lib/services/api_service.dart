@@ -98,4 +98,18 @@ class ApiService {
       MyDialogs.error(msg: 'Something went wrong.');
     }
   }
+
+  static Future<void> deleteSchedule(String id) async {
+    try {
+      final response = await http.delete(Uri.parse('$deleteSchedUrl?id=$id'));
+
+      if (response.statusCode == 200) {
+        final message = jsonDecode(response.body)['message'];
+        MyDialogs.success(msg: message);
+      }
+    } catch (e) {
+      log(e.toString());
+      MyDialogs.error(msg: 'Something went wrong.');
+    }
+  }
 }

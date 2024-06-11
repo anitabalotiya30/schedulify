@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:schedulify/ui/views/home/home_view.dart' as _i2;
 import 'package:schedulify/ui/views/my_activity/my_activity_view.dart' as _i4;
 import 'package:schedulify/ui/views/schedule_list/schedule_list_view.dart';
-import 'package:schedulify/ui/views/startup/startup_view.dart' as _i3;
+import 'package:schedulify/ui/views/splash/splash_view.dart' as _i3;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i6;
 import 'package:stacked_services/stacked_services.dart';
@@ -45,7 +45,7 @@ class StackedRouter extends _i1.RouterBase {
     ),
     _i1.RouteDef(
       Routes.startupView,
-      page: _i3.StartupView,
+      page: _i3.SplashView,
     ),
     _i1.RouteDef(
       Routes.myActivityView,
@@ -64,9 +64,9 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i3.StartupView: (data) {
+    _i3.SplashView: (data) {
       return _i5.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i3.StartupView(),
+        builder: (context) => const _i3.SplashView(),
         settings: data,
       );
     },

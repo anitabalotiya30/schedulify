@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:schedulify/helper/extensions.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
+import '../../../app/app.dialogs.dart';
 import '../../../app/app.locator.dart';
 import '../../../models/schedule.dart';
 import '../../../services/api_service.dart';
@@ -10,6 +14,7 @@ import '../../dialogs/my_dialogs/my_dialogs.dart';
 class ScheduleListViewModel
     extends FutureViewModel<List<Map<String, List<Schedule>>>> {
   final _apiService = locator<ApiService>();
+  final _dialogService = locator<DialogService>();
 
   final schedule = Schedule();
   final pageC = PageController();
@@ -24,8 +29,7 @@ class ScheduleListViewModel
   void onClickAddSched() async {
     if (validate()) {
       await ApiService.createSchedule(schedule.toJson());
-      final getData = await futureToRun();
-      data = List.from(getData);
+      await refresh();
       reset();
     } else {
       MyDialogs.error(msg: 'Fields marked with an asterisk (*) are required.');
@@ -37,12 +41,34 @@ class ScheduleListViewModel
       final updateJson = schedule.toJson();
       updateJson['id'] = schedule.id;
       await ApiService.updateSchedule(updateJson);
-      final getData = await futureToRun();
-      data = List.from(getData);
+      await refresh();
       reset();
     } else {
       MyDialogs.error(msg: 'Fields marked with an asterisk (*) are required.');
     }
+  }
+
+  void deleteRecord(String id) {
+    _dialogService
+        .showCustomDialog(
+            variant: DialogType.infoAlert,
+            title: 'Are you sure?',
+            description: 'Do your really want to delete this record?')
+        .then(
+      (v) async {
+        log('confirmed --- ${v!.confirmed}');
+        if (v.confirmed) {
+          await ApiService.deleteSchedule(id);
+          await refresh();
+          rebuildUi();
+        }
+      },
+    );
+  }
+
+  Future<void> refresh() async {
+    final getData = await futureToRun();
+    data = List.from(getData);
   }
 
   void onToggleSwitch(bool v) {

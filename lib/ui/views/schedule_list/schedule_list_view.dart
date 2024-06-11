@@ -140,7 +140,8 @@ class _ViewUpcomingSchedule extends StatelessWidget {
 
                                       //  delete record
                                       IconButton(
-                                          onPressed: () {},
+                                          onPressed: () =>
+                                              viewModel.deleteRecord(v.id),
                                           icon: const Icon(
                                               Icons.delete_outline_rounded)),
                                     ],

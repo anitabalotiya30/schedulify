@@ -1,5 +1,8 @@
 //helper functions
 
+import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
 extension MyString on String {
   DateTime? get dateTime => DateTime.tryParse(this);
 
@@ -12,4 +15,11 @@ extension FicListExtension<T> on List<T> {
       yield map(index, this[index]);
     }
   }
+
+  //animate list
+  List<Widget> get animateList => (this as List<Widget>)
+      .animate(interval: const Duration(milliseconds: 200))
+      .fadeIn(duration: const Duration(milliseconds: 400))
+      .slideY(
+          begin: 0.50, end: 0.0, duration: const Duration(milliseconds: 300));
 }

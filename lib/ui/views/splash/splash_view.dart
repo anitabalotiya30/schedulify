@@ -1,31 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:schedulify/app/app.router.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-import 'splash_view_model.dart';
+import '../../../app/app.locator.dart';
+import '../../widgets/common/custom_loading.dart';
+import '../../widgets/common/logo.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      const Duration(seconds: 3),
+
+      // This is where you can make decisions on where your app should navigate when
+      // you have custom startup logic
+      () => locator<NavigationService>().replaceWithHomeView(),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SplashViewModel>.reactive(
-      viewModelBuilder: () => SplashViewModel(),
-      // onModelReady: (SplashViewModel model) async {
-      //   await model.init();
-      // },
-      builder: (
-        BuildContext context,
-        SplashViewModel model,
-        Widget? child,
-      ) {
-        return const Scaffold(
-          body: Center(
-            child: Text(
-              'SplashView',
+    return const Scaffold(
+      //
+      body: SizedBox(
+        width: double.maxFinite,
+
+        //
+        child: Column(
+          children: [
+            Spacer(flex: 2),
+
+            // logo
+            Logo(height: 150),
+
+            Spacer(),
+
+            // loading
+            CustomLoading(
+              color: Colors.black,
             ),
-          ),
-        );
-      },
+
+            Spacer(),
+          ],
+        ),
+      ),
     );
   }
 }

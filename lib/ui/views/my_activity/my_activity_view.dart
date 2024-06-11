@@ -1,152 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:schedulify/helper/extensions.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../helper/global.dart';
-import '../../../models/my_activity.dart';
-import '../../common/shared_styles.dart';
-import '../../common/ui_helpers.dart';
-import './my_activity_view_model.dart';
+import 'my_activity_view_model.dart';
+import 'tabs/bookmark_tab.dart';
+import 'tabs/chart_tab.dart';
+import 'tabs/home_tab.dart';
+import 'tabs/perc_tab.dart';
+import 'tabs/profile_tab.dart';
 
-class MyActivityView extends StackedView<MyActivityViewModel> {
+class MyActivityView extends StatelessWidget {
   const MyActivityView({super.key});
 
   @override
-  Widget builder(
-      BuildContext context, MyActivityViewModel viewModel, Widget? child) {
-    return Scaffold(
-        backgroundColor: const Color(0XFF9381ff),
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<MyActivityViewModel>.nonReactive(
+        viewModelBuilder: () => MyActivityViewModel(),
+        builder: (context, viewModel, child) => Scaffold(
+            backgroundColor: const Color(0XFF9381ff),
 
-        //
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: const Color(0XFF9381ff),
-          iconTheme: const IconThemeData(color: Colors.white),
-          title:
-              const Text('My Activity', style: TextStyle(color: Colors.white)),
+            //
+            bottomNavigationBar: _BottomNavBar(viewModel: viewModel),
 
-          //
-          actions: [
-            IconButton(onPressed: viewModel.back, icon: const Icon(Icons.home))
-          ],
-        ),
-
-        //
-        body: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: mq.width * .04),
+            //
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: const Color(0XFF9381ff),
+              iconTheme: const IconThemeData(color: Colors.white),
+              title: const Text('My Activity',
+                  style: TextStyle(color: Colors.white)),
 
               //
-              child: const Text(
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s '
-                'standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make '
-                'a type specimen book.',
-              ),
+              actions: [
+                IconButton(
+                    onPressed: viewModel.back, icon: const Icon(Icons.home)),
+              ],
             ),
 
             //
-            Expanded(
-              child: Container(
-                width: mq.width,
-                margin: EdgeInsets.only(top: mq.height * .04),
+            body: PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: viewModel.pageC,
+              itemCount: viewModel.navItems.length,
 
-                //
-                padding: EdgeInsets.only(
-                    top: mq.height * .02,
-                    left: mq.width * .04,
-                    right: mq.width * .04),
-
-                //
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(50))),
-
-                //
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-
-                  //
-                  child: Column(
-                    //
-                    children: [
-                      //
-                      Wrap(
-                        spacing: mq.width * .12,
-                        runSpacing: mq.height * .04,
-                        alignment: WrapAlignment.center,
-                        children: [
-                          // list of activity
-                          ...Activities.values.map(
-                            // percentage indicator
-                            (e) {
-                              // get a random percentage
-                              final randomPerc = randomNumber;
-
-                              //
-                              return CircularPercentIndicator(
-                                radius: 60,
-                                animation: true,
-                                animateFromLastPercent: true,
-                                circularStrokeCap: CircularStrokeCap.round,
-                                animationDuration: 1200,
-                                lineWidth: 16,
-                                startAngle: 0.0,
-                                percent: (randomPerc / 100),
-                                progressColor: e.color,
-                                center:
-                                    Text('$randomPerc%', style: ktsTitleText),
-
-                                //
-                                header: Padding(
-                                  padding:
-                                      EdgeInsets.only(bottom: mq.height * .01),
-                                  child: Text(e.title, style: ktsTitleText),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      verticalSpaceMedium,
-
-                      //
-
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'YOUR NUMBERS LOOK GRATE',
-                          style: ktsTitleText,
-                        ),
-                      ),
-
-                      // for giving some space
-                      verticalSpaceTiny,
-
-                      //
-                      const Text(
-                        'Your numbers look great in all key areas—Mind, Money, Body, Tribe, and World. '
-                        'Keep up the excellent work! Your dedication to mental well-being, financial growth, '
-                        'physical health, strong relationships, and positive societal impact is clearly paying off. '
-                        'Maintain this balanced approach to life; it\'s truly impressive!',
-                      ),
-
-                      //
-                      verticalSpaceMedium
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ));
+              //
+              itemBuilder: (context, index) => [
+                HomeTab(),
+                const PercentageTab(),
+                const ChartTab(),
+                const BookmarkTab(),
+                const ProfileTab()
+              ][index],
+            )));
   }
+}
+
+class _BottomNavBar extends StatelessWidget {
+  final MyActivityViewModel viewModel;
+  const _BottomNavBar({required this.viewModel});
 
   @override
-  MyActivityViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      MyActivityViewModel();
+  Widget build(BuildContext context) {
+    return Container(
+        height: mq.height * .07,
+
+        //
+        decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(color: Colors.grey, offset: Offset(0, 1), blurRadius: 2.5)
+        ]),
+
+        //
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+
+            //
+            children: [
+              ...[
+                Icons.home,
+                Icons.percent,
+                Icons.bar_chart,
+                Icons.bookmark,
+                Icons.person
+              ].mapIndexed((i, e) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      //
+                      children: [
+                        //
+                        GestureDetector(
+                            onTap: () => viewModel.pageC.jumpToPage(i),
+                            child: Icon(e))
+                      ]))
+            ]));
+  }
 }

@@ -29,9 +29,12 @@ class HomeView extends StatelessWidget {
 
           //
           children: [
-            Text(
-              'Tap "My Activity" to View Your Activity',
-              style: ktsTitleText,
+            InkWell(
+              onTap: () => viewModel.showDialog(),
+              child: Text(
+                'Tap "My Activity" to View Your Activity',
+                style: ktsTitleText,
+              ),
             ),
 
             // for giving some space

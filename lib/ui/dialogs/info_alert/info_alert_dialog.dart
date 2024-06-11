@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:schedulify/ui/common/app_colors.dart';
-import 'package:schedulify/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'info_alert_dialog_model.dart';
+import '../../common/app_colors.dart';
+import '../../common/ui_helpers.dart';
 
 const double _graphicSize = 60;
 
-class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
+class InfoAlertDialog extends StatelessWidget {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
@@ -19,26 +17,32 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
   }) : super(key: key);
 
   @override
-  Widget builder(
-    BuildContext context,
-    InfoAlertDialogModel viewModel,
-    Widget? child,
-  ) {
+  Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
+
+      //
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+
+        //
         child: Column(
           mainAxisSize: MainAxisSize.min,
+
+          //
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              //
               children: [
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
+
+                    //
                     children: [
                       Text(
                         request.title!,
@@ -56,6 +60,8 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                     ],
                   ),
                 ),
+
+                //
                 Container(
                   width: _graphicSize,
                   height: _graphicSize,
@@ -67,42 +73,62 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                   ),
                   alignment: Alignment.center,
                   child: const Text(
-                    '⭐️',
+                    '⚠️',
                     style: TextStyle(fontSize: 30),
                   ),
                 )
               ],
             ),
             verticalSpaceMedium,
-            GestureDetector(
-              onTap: () => completer(DialogResponse(
-                confirmed: true,
-              )),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
+
+            //
+            Row(
+              children: [
+                // cancel btn
+                Expanded(
+                  child: GestureDetector(
+                      onTap: () => completer(DialogResponse(
+                            confirmed: false,
+                          )),
+                      child: _btn(text: 'Cancel', whiteBtn: true)),
                 ),
-                child: const Text(
-                  'Got it',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            )
+                horizontalSpaceSmall,
+
+                // confirm btn
+                Expanded(
+                  child: GestureDetector(
+                      onTap: () => completer(DialogResponse(
+                            confirmed: true,
+                          )),
+                      child: _btn(text: 'Yes')),
+                )
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  @override
-  InfoAlertDialogModel viewModelBuilder(BuildContext context) =>
-      InfoAlertDialogModel();
+  Widget _btn({required String text, final whiteBtn = false}) {
+    return Container(
+      height: 50,
+      // width: double.infinity,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: whiteBtn ? Colors.white : Colors.black,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: whiteBtn ? Colors.black : Colors.white)),
+
+      //
+      child: Text(
+        text,
+        style: TextStyle(
+          color: whiteBtn ? Colors.black : Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
 }

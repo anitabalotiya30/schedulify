@@ -17,12 +17,10 @@ Future<void> main() async {
   //enter full-screen
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-  runApp(const MainApp());
-
   //for setting orientation to portrait only
-  // await SystemChrome.setPreferredOrientations(
-  //         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-  //     .then((value) => runApp(const MainApp()));
+  await SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((value) => runApp(const MainApp()));
 }
 
 class MainApp extends StatelessWidget {

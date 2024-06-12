@@ -51,11 +51,13 @@ class ScheduleListView extends StatelessWidget {
             // for giving some space vertically
             verticalSpaceSmall,
 
-            SizedBox(
-                height: mq.height * .26,
+            viewModel.data?.isNotEmpty ?? false
+                ? SizedBox(
+                    height: mq.height * .26,
 
-                //
-                child: _ViewUpcomingSchedule(viewModel: viewModel)),
+                    //
+                    child: _ViewUpcomingSchedule(viewModel: viewModel))
+                : const SizedBox(),
 
             // for giving some space
             verticalSpaceSmall,

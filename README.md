@@ -1,3 +1,3 @@
 # schedulify
 
-A new Flutter project.
+Schedule App Developed in Flutter with Stacked Architecture.

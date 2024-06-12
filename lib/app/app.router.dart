@@ -5,14 +5,15 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i5;
+import 'package:flutter/material.dart' as _i6;
 import 'package:flutter/material.dart';
 import 'package:schedulify/ui/views/home/home_view.dart' as _i2;
 import 'package:schedulify/ui/views/my_activity/my_activity_view.dart' as _i4;
-import 'package:schedulify/ui/views/schedule_list/schedule_list_view.dart';
+import 'package:schedulify/ui/views/schedule_list/schedule_list_view.dart'
+    as _i5;
 import 'package:schedulify/ui/views/splash/splash_view.dart' as _i3;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i6;
+import 'package:stacked_services/stacked_services.dart' as _i7;
 import 'package:stacked_services/stacked_services.dart';
 
 class Routes {
@@ -23,7 +24,7 @@ class Routes {
 
   static const homeView = '/home-view';
 
-  static const startupView = '/startup-view';
+  static const splashView = '/splash-view';
 
   static const myActivityView = '/my-activity-view';
 
@@ -31,7 +32,7 @@ class Routes {
 
   static const all = <String>{
     homeView,
-    startupView,
+    splashView,
     myActivityView,
     scheduleListView,
   };
@@ -44,7 +45,7 @@ class StackedRouter extends _i1.RouterBase {
       page: _i2.HomeView,
     ),
     _i1.RouteDef(
-      Routes.startupView,
+      Routes.splashView,
       page: _i3.SplashView,
     ),
     _i1.RouteDef(
@@ -53,25 +54,25 @@ class StackedRouter extends _i1.RouterBase {
     ),
     _i1.RouteDef(
       Routes.scheduleListView,
-      page: ScheduleListView,
+      page: _i5.ScheduleListView,
     ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
+      return _i6.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.SplashView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
+      return _i6.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.SplashView(),
         settings: data,
       );
     },
     _i4.MyActivityView: (data) {
-      return _i5.PageRouteBuilder<dynamic>(
+      return _i6.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const _i4.MyActivityView(),
         settings: data,
@@ -79,10 +80,9 @@ class StackedRouter extends _i1.RouterBase {
             data.transition ?? _i1.TransitionsBuilders.moveInLeft,
       );
     },
-    ScheduleListView: (data) {
-      return _i5.PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const ScheduleListView(),
+    _i5.ScheduleListView: (data) {
+      return _i6.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i5.ScheduleListView(),
         settings: data,
       );
     },
@@ -95,7 +95,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i6.NavigationService {
+extension NavigatorStateExtension on _i7.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -110,14 +110,14 @@ extension NavigatorStateExtension on _i6.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToStartupView([
+  Future<dynamic> navigateToSplashView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.startupView,
+    return navigateTo<dynamic>(Routes.splashView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -138,6 +138,20 @@ extension NavigatorStateExtension on _i6.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToScheduleListView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.scheduleListView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -152,14 +166,14 @@ extension NavigatorStateExtension on _i6.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithStartupView([
+  Future<dynamic> replaceWithSplashView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.startupView,
+    return replaceWith<dynamic>(Routes.splashView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -174,6 +188,20 @@ extension NavigatorStateExtension on _i6.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.myActivityView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithScheduleListView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.scheduleListView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

@@ -9,7 +9,9 @@ import 'dart:ui' as _i6;
 import 'package:flutter/material.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
+import 'package:schedulify/models/schedule.dart' as _i8;
 import 'package:schedulify/services/api_service.dart' as _i7;
+import 'package:schedulify/services/pref_service.dart' as _i9;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -675,4 +677,23 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 /// A class which mocks [ApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiService extends _i1.Mock implements _i7.ApiService {}
+class MockApiService extends _i1.Mock implements _i7.ApiService {
+  @override
+  _i5.Future<List<Map<String, List<_i8.Schedule>>>> getScheduleList() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getScheduleList,
+          [],
+        ),
+        returnValue: _i5.Future<List<Map<String, List<_i8.Schedule>>>>.value(
+            <Map<String, List<_i8.Schedule>>>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<Map<String, List<_i8.Schedule>>>>.value(
+                <Map<String, List<_i8.Schedule>>>[]),
+      ) as _i5.Future<List<Map<String, List<_i8.Schedule>>>>);
+}
+
+/// A class which mocks [PrefService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPrefService extends _i1.Mock implements _i9.PrefService {}

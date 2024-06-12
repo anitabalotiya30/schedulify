@@ -7,12 +7,28 @@ import 'app/app.dialogs.dart';
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
 import 'helper/global.dart';
+import 'services/pref_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // setup locator services
   await setupLocator();
+
+  // setup of dialogs and bottomsheet
   setupDialogUi();
   setupBottomSheetUi();
+
+  //
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarIconBrightness: Brightness.dark,
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+
+  // hive initialization
+  await PrefService.initializeHive();
 
   //enter full-screen
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
@@ -36,7 +52,7 @@ class MainApp extends StatelessWidget {
       title: appName,
 
       //
-      initialRoute: Routes.startupView,
+      initialRoute: Routes.splashView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [

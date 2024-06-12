@@ -1,3 +1,4 @@
+import 'package:schedulify/services/pref_service.dart';
 // @stacked-import
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -26,6 +27,7 @@ import '../ui/views/splash/splash_view.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: ApiService),
+    LazySingleton(classType: PrefService),
 // @stacked-service
   ],
   bottomsheets: [

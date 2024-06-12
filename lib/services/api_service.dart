@@ -3,13 +3,17 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:schedulify/helper/extensions.dart';
+import 'package:stacked_services/stacked_services.dart';
 
+import '../app/app.locator.dart';
 import '../helper/endpoints.dart';
 import '../helper/global.dart';
 import '../models/schedule.dart';
 import '../ui/dialogs/my_dialogs/my_dialogs.dart';
 
 class ApiService {
+  static final _navService = locator<NavigationService>();
+
   Future<List<Map<String, List<Schedule>>>> getScheduleList() async {
     var schedule = <Map<String, List<Schedule>>>[];
     try {
@@ -67,10 +71,12 @@ class ApiService {
 
   static Future<void> createSchedule(Map<String, dynamic> jsonBody) async {
     try {
+      MyDialogs.showProgressBar();
       final response = await http.post(
         Uri.parse(createSchedUrl),
         body: jsonEncode(jsonBody),
       );
+      _navService.back();
 
       if (response.statusCode == 200) {
         final message = jsonDecode(response.body)['message'];
@@ -84,10 +90,12 @@ class ApiService {
 
   static Future<void> updateSchedule(Map<String, dynamic> jsonBody) async {
     try {
+      MyDialogs.showProgressBar();
       final response = await http.put(
         Uri.parse(updateSchedUrl),
         body: jsonEncode(jsonBody),
       );
+      _navService.back();
 
       if (response.statusCode == 200) {
         final message = jsonDecode(response.body)['message'];
@@ -101,7 +109,9 @@ class ApiService {
 
   static Future<void> deleteSchedule(String id) async {
     try {
+      MyDialogs.showProgressBar();
       final response = await http.delete(Uri.parse('$deleteSchedUrl?id=$id'));
+      _navService.back();
 
       if (response.statusCode == 200) {
         final message = jsonDecode(response.body)['message'];

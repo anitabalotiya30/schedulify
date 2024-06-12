@@ -4,12 +4,14 @@
 // StackedDialogGenerator
 // **************************************************************************
 
+import 'package:flutter/material.dart';
+import 'package:schedulify/ui/widgets/common/custom_loading.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app.locator.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 
-enum DialogType { infoAlert }
+enum DialogType { infoAlert, loading }
 
 void setupDialogUi() {
   final dialogService = locator<DialogService>();
@@ -19,6 +21,10 @@ void setupDialogUi() {
           request: request,
           completer: completer,
         ),
+    DialogType.loading: (context, request, completer) => const Dialog(
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        child: CustomLoading())
   };
 
   dialogService.registerCustomDialogBuilders(builders);

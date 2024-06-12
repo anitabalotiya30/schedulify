@@ -40,7 +40,7 @@ class MyDialogs {
         msg,
         style: const TextStyle(color: Colors.white),
       ),
-      backgroundColor: kcPrimaryColor,
+      backgroundColor: kcBodyArcColor,
     );
 
     showSnackbar(snackBar);
@@ -53,7 +53,7 @@ class MyDialogs {
         msg,
         style: const TextStyle(color: Colors.white),
       ),
-      backgroundColor: kcPrimaryColor,
+      backgroundColor: kcBodyArcColor,
     );
 
     showSnackbar(snackBar);

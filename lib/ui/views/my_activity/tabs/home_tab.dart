@@ -9,6 +9,7 @@ import '../../../../models/my_activity.dart';
 import '../../../common/app_strings.dart';
 import '../../../common/shared_styles.dart';
 import '../../../common/ui_helpers.dart';
+import '../../../widgets/common/custom_card.dart';
 import '../my_activity_view_model.dart';
 
 class HomeTab extends StatelessWidget {
@@ -137,41 +138,8 @@ class HomeTab extends StatelessWidget {
                       //
                       children: [
                         ...Activities.values.map(
-                          (e) => Card(
-                            color: e.color,
-                            elevation: 0,
-                            margin: const EdgeInsets.only(top: 12),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16))),
-                            //
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-
-                              //
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-
-                                //
-                                children: [
-                                  Text(
-                                    e.title,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16),
-                                  ),
-                                  verticalSpaceSmall,
-
-                                  //
-                                  const Text(
-                                    dummyText,
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                ],
-                              ).fadeIn,
-                            ),
-                          ),
+                          (e) => CustomCard(
+                              title: e.title, desc: dummyText, color: e.color),
                         )
                       ].animateList,
                     )

@@ -3,6 +3,7 @@ import 'package:schedulify/helper/extensions.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../helper/global.dart';
+import '../../common/app_colors.dart';
 import 'my_activity_view_model.dart';
 import 'tabs/bookmark_tab.dart';
 import 'tabs/chart_tab.dart';
@@ -18,7 +19,7 @@ class MyActivityView extends StatelessWidget {
     return ViewModelBuilder<MyActivityViewModel>.nonReactive(
         viewModelBuilder: () => MyActivityViewModel(),
         builder: (context, viewModel, child) => Scaffold(
-            backgroundColor: const Color(0XFF9381ff),
+            backgroundColor: kcActivityBgColor,
 
             //
             bottomNavigationBar: _BottomNavBar(viewModel: viewModel),
@@ -26,7 +27,7 @@ class MyActivityView extends StatelessWidget {
             //
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              backgroundColor: const Color(0XFF9381ff),
+              backgroundColor: kcActivityBgColor,
               iconTheme: const IconThemeData(color: Colors.white),
               title: const Text('My Activity',
                   style: TextStyle(color: Colors.white)),
@@ -46,7 +47,7 @@ class MyActivityView extends StatelessWidget {
 
               //
               itemBuilder: (context, index) => [
-                HomeTab(),
+                const HomeTab(),
                 const PercentageTab(),
                 const ChartTab(),
                 const BookmarkTab(),

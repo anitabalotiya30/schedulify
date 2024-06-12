@@ -23,3 +23,7 @@ extension FicListExtension<T> on List<T> {
       .slideY(
           begin: 0.50, end: 0.0, duration: const Duration(milliseconds: 300));
 }
+
+extension MyFadeInAnimation on Widget {
+  Widget get fadeIn => animate().fadeIn(duration: 1000.ms);
+}

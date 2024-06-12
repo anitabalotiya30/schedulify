@@ -6,9 +6,9 @@ import '../../../app/app.locator.dart';
 
 class MyActivityViewModel extends BaseViewModel {
   final _navServices = locator<NavigationService>();
-  final scrollC = ScrollController();
+  // final scrollC = ScrollController();
   final pageC = PageController();
-  bool visible = false;
+  final dataKey = GlobalKey();
 
   final navItems = [
     Icons.home,

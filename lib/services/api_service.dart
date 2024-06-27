@@ -59,7 +59,6 @@ class ApiService {
             .map((entry) => {entry.key: entry.value})
             .toList());
         log('schedule --- ${schedule.length}');
-
         return schedule;
       }
       return schedule;

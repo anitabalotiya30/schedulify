@@ -21,11 +21,10 @@ Future<void> main() async {
 
   //
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarIconBrightness: Brightness.dark,
-    statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.white,
-    systemNavigationBarIconBrightness: Brightness.dark,
-  ));
+      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark));
 
   // hive initialization
   await PrefService.initializeHive();
@@ -88,9 +87,7 @@ class MainApp extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(10))),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
       ),
